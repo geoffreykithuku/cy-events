@@ -64,43 +64,54 @@ const AdminDashboard = () => {
           </p>
         </>
       )}
-      <table className="w-full mx-auto table-auto mt-10">
-        <thead className="bg-[#8fa7eb] text-white text-lg font-semibold table-auto">
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+      <div className="w-full overflow-x-scroll">
+        <table className="w-full mx-auto table-auto mt-10">
+          <thead className="bg-[#8fa7eb] text-white text-lg font-semibold table-auto">
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Maximum attendees</th>
+              <th>Location</th>
+              <th>Date</th>
+              <th>Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
 
-        <tbody className="mt-5 font-light text-[#363062] w-full">
-          {events.map((event, index) => {
-            return (
-              <tr
-                key={index}
-                className="text-center mt-3 text-[#363062] font-light hover:bg-gray-200 duration-300 border-b text-sm w-full"
-              >
-                <td>{event.title}</td>
-                <td>{event.description}</td>
-                <td className="flex gap-5 flex-wrap items-center justify-center ">
-                  <Link
-                    to={`/edit-event/${event._id}`}
-                    className="bg-blue-500 text-white p-2 rounded-md"
-                  >
-                    <FilePenLine size={16} />
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(event._id)}
-                    className="bg-red-500 text-white p-2 rounded-md"
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+          <tbody className="mt-5 font-light text-[#363062] w-full">
+            {events.map((event, index) => {
+              return (
+                <tr
+                  key={index}
+                  className="text-center mt-3 text-[#363062] font-light hover:bg-gray-200 duration-300 border-b text-sm w-full"
+                >
+                  <td>{event.title}</td>
+                  <td>{event.description}</td>
+                  <td>{event.no_of_tickets}</td>
+                  <td>{event.location}</td>
+                  <td>{event.date}</td>
+                  <td>{event.price}</td>
+
+                  <td className="flex gap-5 flex-wrap items-center justify-center ">
+                    <Link
+                      to={`/edit-event/${event._id}`}
+                      className="bg-blue-500 text-white p-2 rounded-md"
+                    >
+                      <FilePenLine size={16} />
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(event._id)}
+                      className="bg-red-500 text-white p-2 rounded-md"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

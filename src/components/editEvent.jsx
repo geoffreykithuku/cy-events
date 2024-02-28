@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useParams , useNavigate} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 import { doc, updateDoc } from "firebase/firestore";
@@ -7,8 +7,8 @@ import { db } from "../firebase";
 import { toast } from "react-toastify";
 
 const EditEvent = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
+  const { id } = useParams();
+  const navigate = useNavigate();
   const { events, setEvents } = useContext(AuthContext);
   const event = events.find((event) => event._id === id);
   const [newEvent, setNewEvent] = useState({ ...event });
@@ -25,6 +25,8 @@ const EditEvent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    newEvent.poster_url =
+      newEvent.poster_url || "https://source.unsplash.com/random";
     const eventRef = doc(db, "events", id);
     try {
       await updateDoc(eventRef, newEvent);
@@ -37,14 +39,12 @@ const EditEvent = () => {
           return event;
         });
       });
-        toast.success("Document successfully updated");
-        navigate("/admin-dashboard");
+      toast.success("Document successfully updated");
+      navigate("/admin-dashboard");
     } catch (e) {
       toast.error("Error updating document: ", e);
     }
   };
-
-  console.log(event);
 
   return (
     <div className="flex justify-center items-center h-screen text-[#435585] py-10">

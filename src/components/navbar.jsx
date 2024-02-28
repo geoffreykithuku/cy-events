@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 import { auth } from "../firebase";
 
 const Navbar = () => {
-  const { currentUser , is_admin} = useContext(AuthContext);
-  
+  const { currentUser, is_admin } = useContext(AuthContext);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
@@ -56,13 +55,26 @@ const Navbar = () => {
               : "hidden md:flex  gap-4 lg:gap-10 text-xl  md:justify-end items-center ml-auto w-full"
           } `}
         >
-          <li className="hover:text-[#CE5A67] duration-300 ">
-            <Link to="/dashboard">Events</Link>
-          </li>
+          {is_admin ? (
+            <li className="hover:text-[#CE5A67] duration-300 ">
+              <Link to="/admin-dashboard">Events (admin)</Link>
+            </li>
+          ) : (
+            <li className="hover:text-[#CE5A67] duration-300 ">
+              <Link to="/dashboard">Events</Link>
+            </li>
+          )}
 
-          <li className="hover:text-[#CE5A67] duration-300 ">
-            <Link to="/my-events">MyEvents</Link>
-          </li>
+          {is_admin ? (
+            <li className="hover:text-[#CE5A67] duration-300 ">
+              <Link to="/dashboard">Events (user view)</Link>
+            </li>
+          ) : (
+            <li className="hover:text-[#CE5A67] duration-300 ">
+              <Link to="/user-events">MyEvents</Link>
+            </li>
+          )}
+
           {is_admin && (
             <li className="hover:text-[#CE5A67] duration-300 ">
               <Link to="/create-event">Create Event</Link>
