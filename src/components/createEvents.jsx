@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { db } from "../firebase";
+import { addDoc, collection } from "firebase/firestore";
 import { toast } from "react-toastify";
 
 const CreateEvent = () => {
@@ -27,13 +28,13 @@ const CreateEvent = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     event.poster_url = event.poster_url || "https://source.unsplash.com/random";
 
     try {
-      const doc = db.collection("events").add(event);
-      console.log(doc);
+      const docRef = await addDoc(collection(db, "events"), event);
+      console.log("Document written with ID: ", docRef.id);
 
       toast.success("Event created successfully");
     } catch (error) {
