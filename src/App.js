@@ -20,7 +20,7 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/create-event" element={<CreateEvent />} />
-        <Route path="/edit-event" element={<EditEvent />} />
+        <Route path="/edit-event/:id" element={<EditEvent />} />
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
       </Routes>
