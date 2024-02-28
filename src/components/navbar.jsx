@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import { auth } from "../firebase";
 
 const Navbar = () => {
-  const { currentUser } = useContext(AuthContext);
-  const is_admin = currentUser?.email === "admin@gmail.com";
+  const { currentUser , is_admin} = useContext(AuthContext);
+  
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
@@ -39,7 +39,7 @@ const Navbar = () => {
   return (
     <nav className="flex justify-between items-center flex-wrap md:flex-nowrap w-full h-[100px]  px-5 sm:px-10 lg:px-[100px] py-5 font-poppins bg-[#435585] text-white">
       <h1 className="text-[32px] font-bold mr-2 md:mr-10 text-[#363062]]">
-        Cy<span className="text-[#CE5A67]">Events</span>
+        Cy<span className="text-[#cbdd24]">Events</span>
       </h1>
       <button className="ml-auto md:hidden" onClick={toggleMobileMenu}>
         {isMobileMenuOpen ? (

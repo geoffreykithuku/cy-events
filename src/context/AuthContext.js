@@ -7,6 +7,7 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
+  const is_admin = currentUser?.email === "admin@gmail.com";
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -22,6 +23,7 @@ export function AuthProvider({ children }) {
     setCurrentUser,
     events,
     setEvents,
+    is_admin,
   };
 
   return (

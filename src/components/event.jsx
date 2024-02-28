@@ -50,7 +50,9 @@ const EventCard = ({ event }) => {
           <option value="4">4</option>
         </select>
         <button className="p-2 bg-blue-500 text-white rounded-md">RSVP</button>
-      </div>
+          </div>
+          
+          {/* if loggedin user is admin, display edit and delete buttons */}
     </div>
   );
 };
