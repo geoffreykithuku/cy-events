@@ -1,28 +1,70 @@
-import { Link } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+
+import { auth } from "../firebase";
+
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-toastify";
 
 const Signin = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, formData.email, formData.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        toast.error(errorCode, errorMessage);
+      });
+  };
+
   return (
     <div className="w-full bg-white text-[#435845] block items-center justify-center px-5 py-10 sm:py-20">
       <div className="max-w-[500px] mx-auto my-auto justify-center items-center flex flex-col border p-5 rounded">
-        <form className="flex flex-col gap-5">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <h1 className="md:text-4xl text-2xl font-semibold text-center mb-5">
             Welcome Back
           </h1>
-         
+
           <input
+            onChange={handleChange}
+            name="email"
             type="email"
             placeholder="Email"
             className="px-5 py-3 rounded-md border border-[#435585]"
           />
           <input
+            onChange={handleChange}
+            name="password"
             type="password"
             placeholder="Password"
             className="px-5 py-3 rounded-md border border-[#435585]"
           />
-         
+
           <span className="w-full flex flex-col">
-            <button className="bg-[#435585] text-white py-3 rounded-md">
+            <button
+              type="submit"
+              className="bg-[#435585] text-white py-3 rounded-md"
+            >
               Signin
             </button>
 
