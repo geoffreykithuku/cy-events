@@ -1,6 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebase";
+import {
+  collection,
+  getDocs,
+  query,
 
+  orderBy,
+
+} from "firebase/firestore";
+
+import { db } from "../firebase";
 
 export const AuthContext = createContext();
 
@@ -19,17 +28,26 @@ export function AuthProvider({ children }) {
     return () => unsubscribe();
   }, []);
 
+  const getEvents = async () => {
+    const q = query(collection(db, "events"), orderBy("date"));
+    const querySnapshot = await getDocs(q);
+    let eventarray = [];
+    querySnapshot.forEach((doc) => {
+      setEvents(() => {
+        eventarray.push({ ...doc.data(), _id: doc.id });
+        return eventarray;
+      });
+    });
+  };
 
-  
   const value = {
     currentUser,
     setCurrentUser,
     events,
     setEvents,
     is_admin,
-   
+    getEvents,
   };
-
 
   return (
     <AuthContext.Provider value={value}>

@@ -7,6 +7,7 @@ import CreateEvent from "./components/createEvents";
 import EditEvent from "./components/editEvent";
 import UserDashboard from "./components/userDashboard";
 import AdminDashboard from "./components/adminDashboard";
+import ReservedEvents from "./components/myEvents";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -23,6 +24,7 @@ function App() {
         <Route path="/edit-event/:id" element={<EditEvent />} />
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/user-events" element={<ReservedEvents />} />
       </Routes>
 
       <ToastContainer />

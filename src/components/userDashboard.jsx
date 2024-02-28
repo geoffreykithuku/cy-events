@@ -1,32 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import EventCard from "./event";
 import { AuthContext } from "../context/AuthContext";
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-  orderBy,
-  limit,
-  startAfter,
-} from "firebase/firestore";
 
-import { db } from "../firebase";
 
 const UserDashboard = () => {
-  const { events, setEvents } = useContext(AuthContext);
+  const { events, getEvents } = useContext(AuthContext);
 
-  const getEvents = async () => {
-    const q = query(collection(db, "events"), orderBy("date"));
-    const querySnapshot = await getDocs(q);
-    let eventarray = [];
-    querySnapshot.forEach((doc) => {
-      setEvents(() => {
-        eventarray.push({ ...doc.data(), _id: doc.id });
-        return eventarray;
-      });
-    });
-  };
+ 
 
   useEffect(() => {
     getEvents();
