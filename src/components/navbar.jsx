@@ -55,6 +55,9 @@ const Navbar = () => {
               : "hidden md:flex  gap-4 lg:gap-10 text-xl  md:justify-end items-center ml-auto w-full"
           } `}
         >
+          <li className="hover:text-[#CE5A67] duration-300 ">
+            <Link to="/">Home</Link>
+          </li>
           {is_admin ? (
             <li className="hover:text-[#CE5A67] duration-300 ">
               <Link to="/admin-dashboard">Events (admin)</Link>

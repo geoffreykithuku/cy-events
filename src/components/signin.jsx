@@ -6,9 +6,11 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
-    const { setCurrentUser } = useContext(AuthContext);
+  const { setCurrentUser, is_admin } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -25,14 +27,17 @@ const Signin = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, formData.email, formData.password)
+    await signInWithEmailAndPassword(auth, formData.email, formData.password)
       .then((userCredential) => {
-        
         const user = userCredential.user;
-          setCurrentUser(user);
-          window.location.href = "/dashboard";
+        setCurrentUser(user);
+        if (is_admin) {
+          navigate("/admin-dashboard");
+        } else {
+          navigate("/dashboard");
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
