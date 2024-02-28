@@ -1,19 +1,24 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { Heart } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 
 const EventCard = ({ event }) => {
-  const { addRsvp, userEvents, countRsvp } = useContext(AuthContext);
-  const [disabled, setDisabled] = useState(false);
+  const { currentUser, addRsvp, countRsvp } = useContext(AuthContext);
 
-  if (countRsvp(event._id) >= 5) {
-    setDisabled(true);
-    toast.error("Event is full, please try another event");
-  }
+  const handleRsvp = (id) => {
+    if (countRsvp(id) >= event.no_of_tickets) {
+      toast.error("Tickets sold out");
+      return;
+    }
+    if (countRsvp(id) >= 5) {
+      toast.error("You can only reserve 5 tickets per event");
+      return;
+    } else {
+      addRsvp(id);
+    }
+  };
 
-
-  
   return (
     <div className="flex flex-col gap-4 bg-white p-4 rounded-lg shadow-lg w-full max-w-[350px] mx-auto">
       <div className="relative w-full h-[200px] bg-gray-300 rounded-md">
@@ -57,8 +62,7 @@ const EventCard = ({ event }) => {
           <Heart />
         </button>
         <button
-          disabled={disabled}
-          onClick={() => addRsvp(event._id)}
+          onClick={() => handleRsvp(event._id)}
           className="p-2 bg-blue-500 text-white rounded-md"
         >
           RSVP

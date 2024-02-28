@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import { auth } from "../firebase";
 import {
   collection,
@@ -40,11 +40,13 @@ export function AuthProvider({ children }) {
         eventarray.push({ ...doc.data(), _id: doc.id });
         return eventarray;
       });
+      setLoading(false);
     });
   };
 
   // Get rsvps
   const getRsvps = async () => {
+    setLoading(true);
     const rsvpsRef = collection(db, "rsvps");
     const q = query(rsvpsRef, where("user_id", "==", currentUser.uid));
     const querySnapshot = await getDocs(q);
@@ -53,6 +55,7 @@ export function AuthProvider({ children }) {
       eventarray.push({ ...doc.data(), _id: doc.id });
     });
     setUserEvents(eventarray);
+    setLoading(false);
   };
 
   // decreament tickets available by 1 after reservation
@@ -78,18 +81,17 @@ export function AuthProvider({ children }) {
     try {
       await addDoc(rsvpsRef, rsvp);
       decrementTickets(event_id);
-      getEvents();
+
       toast.success("Event reserved successfully");
-      getRsvps();
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   };
 
-  // count the no of reservation for a particular event
-
+  // count rsvp
   const countRsvp = (event_id) => {
-    return userEvents.filter((rsvp) => rsvp.event_id === event_id).length;
+    const rsvp = userEvents.filter((rsvp) => rsvp.event_id === event_id);
+    return rsvp.length;
   };
 
   const value = {

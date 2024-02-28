@@ -2,17 +2,18 @@ import React, { useContext, useEffect } from "react";
 import EventCard from "./event";
 import { AuthContext } from "../context/AuthContext";
 
-
 const UserDashboard = () => {
-  const { events, getEvents } = useContext(AuthContext);
-
- 
+  const { loading, events, getEvents } = useContext(AuthContext);
 
   useEffect(() => {
     getEvents();
   }, []);
 
   const { currentUser } = useContext(AuthContext);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <div className="w-full px-5">
@@ -23,7 +24,7 @@ const UserDashboard = () => {
       )}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 w-full mx-auto">
         {events.map((event, index) => {
-            return <EventCard event={event} key={index} />;
+          return <EventCard event={event} key={index} />;
         })}
       </div>
     </div>
