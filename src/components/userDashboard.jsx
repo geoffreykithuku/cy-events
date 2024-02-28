@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import EventCard from "./event";
+import { AuthContext } from "../context/AuthContext";
 
 const UserDashboard = () => {
   // a user can only book a maximum of 5 tickets
@@ -23,6 +24,8 @@ const UserDashboard = () => {
     no_of_tickets: 0,
   };
 
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser.email);
   return (
     <div className="w-full px-5">
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 w-full mx-auto">

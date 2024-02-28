@@ -4,8 +4,12 @@ import { auth } from "../firebase";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Signin = () => {
+    const { setCurrentUser } = useContext(AuthContext);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -25,10 +29,9 @@ const Signin = () => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, formData.email, formData.password)
       .then((userCredential) => {
-        // Signed in
+        
         const user = userCredential.user;
-        console.log(user);
-        // ...
+        setCurrentUser(user);
       })
       .catch((error) => {
         const errorCode = error.code;
