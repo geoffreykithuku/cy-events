@@ -6,8 +6,8 @@ const Signup = () => {
     <div className="w-full bg-white text-[#435845] block items-center justify-center px-5 py-10 sm:py-20">
       <div className="max-w-[500px] mx-auto my-auto justify-center items-center flex flex-col border p-5 rounded">
         <form className="flex flex-col gap-5">
-          <h1 className="md:text-5xl text-2xl font-semibold text-center mb-5">
-            Signup
+          <h1 className="md:text-4xl text-2xl font-semibold text-center mb-5">
+            Welcome to CyEvents
           </h1>
           <input
             type="text"
