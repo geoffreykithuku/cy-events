@@ -1,8 +1,9 @@
-
-import React from "react";
-import {toast} from "react-toastify";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import { auth } from "../firebase";
 const Signup = () => {
-  const [user, setUser] = React.useState({
+  const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
@@ -22,11 +23,20 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (user.password !== user.confirmPassword) {
-      toast.success("Password does not match");
+      toast.error("Password does not match");
       return;
     }
-      
-      
+    createUserWithEmailAndPassword(auth, user.email, user.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        toast.error(errorCode, errorMessage);
+      });
+
   };
 
   return (
@@ -57,8 +67,8 @@ const Signup = () => {
             placeholder="Password"
             className="px-5 py-3 rounded-md border border-[#435585]"
           />
-                  <input
-            name="confirmPassword"  
+          <input
+            name="confirmPassword"
             onChange={handleChange}
             type="password"
             placeholder="Confirm Password"
