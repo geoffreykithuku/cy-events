@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState, useContext } from "react";
 import { toast } from "react-toastify";
-import { auth } from "../firebase";
+import { auth , db} from "../firebase";
 
 import { AuthContext } from "../context/AuthContext";
 const Signup = () => {
@@ -31,8 +31,10 @@ const Signup = () => {
     }
     createUserWithEmailAndPassword(auth, user.email, user.password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        setCurrentUser(user);
+          const user_doc = userCredential.user;
+         
+
+        setCurrentUser(user_doc);
       })
       .catch((error) => {
         const errorCode = error.code;

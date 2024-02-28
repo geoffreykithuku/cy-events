@@ -1,6 +1,8 @@
 // event creation form using tailwindcss and react
 
 import React, { useState } from "react";
+import { db } from "../firebase";
+import { toast } from "react-toastify";
 
 const CreateEvent = () => {
   const [event, setEvent] = useState({
@@ -16,18 +18,27 @@ const CreateEvent = () => {
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setEvent((prev) => {
       return {
         ...prev,
-        [name]: value,
+        [name]: type === "checkbox" ? checked : value,
       };
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(event);
+    event.poster_url = event.poster_url || "https://source.unsplash.com/random";
+
+    try {
+      const doc = db.collection("events").add(event);
+      console.log(doc);
+
+      toast.success("Event created successfully");
+    } catch (error) {
+      toast.error("Error creating event: ", error);
+    }
   };
 
   return (
@@ -83,7 +94,7 @@ const CreateEvent = () => {
             name="poster_url"
             value={event.poster_url}
             onChange={handleChange}
-            placeholder="Poster URL"
+            placeholder="Poster URL (optional)"
             className="p-2 rounded-md border border-gray-300"
           />
           <div className="flex gap-4 items-center w-full">
