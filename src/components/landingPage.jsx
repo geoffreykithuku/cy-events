@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "react-router-dom";
+
 const LandingPage = () => {
   return (
     <div className="w-screen h-screen bg-[#363062] text-[#F5E8C7] py-10 sm:py-[140px] px-5">
