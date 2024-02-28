@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Heart } from "lucide-react";
+import { AuthContext } from "../context/AuthContext";
 
 const EventCard = ({ event }) => {
+  const { is_admin } = useContext(AuthContext);
   return (
     <div className="flex flex-col gap-4 bg-white p-4 rounded-lg shadow-lg w-full max-w-[350px] mx-auto">
       <div className="relative w-full h-[200px] bg-gray-300 rounded-md">
@@ -35,24 +37,11 @@ const EventCard = ({ event }) => {
       </div>
 
       <div className="flex justify-between items-center">
-        <button className="p-2 text-white rounded-md">
-          <Heart color="#ff0000" />
+        <button className="p-2 bg-red-500 text-white rounded-md">
+          <Heart />
         </button>
-
-        <select
-          name="no_of_tickets"
-          id="no_of_tickets"
-          className="p-2 rounded-md border border-gray-300"
-        >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-        </select>
         <button className="p-2 bg-blue-500 text-white rounded-md">RSVP</button>
-          </div>
-          
-          {/* if loggedin user is admin, display edit and delete buttons */}
+      </div>
     </div>
   );
 };

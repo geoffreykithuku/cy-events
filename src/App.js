@@ -6,6 +6,7 @@ import Signup from "./components/signup";
 import CreateEvent from "./components/createEvents";
 import EditEvent from "./components/editEvent";
 import UserDashboard from "./components/userDashboard";
+import AdminDashboard from "./components/adminDashboard";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/create-event" element={<CreateEvent />} />
         <Route path="/edit-event" element={<EditEvent />} />
         <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
       </Routes>
 
       <ToastContainer />
