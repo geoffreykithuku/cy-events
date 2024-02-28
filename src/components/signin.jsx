@@ -31,7 +31,8 @@ const Signin = () => {
       .then((userCredential) => {
         
         const user = userCredential.user;
-        setCurrentUser(user);
+          setCurrentUser(user);
+          window.location.href = "/dashboard";
       })
       .catch((error) => {
         const errorCode = error.code;

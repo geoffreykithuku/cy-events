@@ -34,7 +34,8 @@ const Signup = () => {
           const user_doc = userCredential.user;
          
 
-        setCurrentUser(user_doc);
+          setCurrentUser(user_doc);
+          window.location.href = "/dashboard";
       })
       .catch((error) => {
         const errorCode = error.code;

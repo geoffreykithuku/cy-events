@@ -1,6 +1,14 @@
 import React from "react";
 import { Menu, X } from "lucide-react";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { auth } from "../firebase";
+
 const Navbar = () => {
+  const { currentUser } = useContext(AuthContext);
+  const is_admin = currentUser?.email === "admin@gmail.com";
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   const toggleMobileMenu = () => {
@@ -18,6 +26,15 @@ const Navbar = () => {
   }
 
   window.addEventListener("resize", checkWindowSize);
+
+  // handle logout
+  const handleLogout = async () => {
+    // signout
+    await auth.signOut();
+
+    // redirect to login page
+    window.location.href = "/signin";
+  };
 
   return (
     <nav className="flex justify-between items-center flex-wrap md:flex-nowrap w-full h-[100px]  px-5 sm:px-10 lg:px-[100px] py-5 font-poppins bg-[#435585] text-white">
@@ -40,23 +57,31 @@ const Navbar = () => {
           } `}
         >
           <li className="hover:text-[#CE5A67] duration-300 ">
-            <a href="#home">Events</a>
+            <Link to="/dashboard">Events</Link>
           </li>
 
           <li className="hover:text-[#CE5A67] duration-300 ">
-            <a href="#about">MyEvents</a>
+            <Link to="/my-events">MyEvents</Link>
           </li>
-          <li className="hover:text-[#CE5A67] duration-300 ">
-            <a href="#skills">Create Event</a>
-          </li>
-          <li className="hover:text-[#CE5A67] duration-300 ">
-            <a href="#projects">Signin</a>
-          </li>
-          <li className="hover:text-[#CE5A67] duration-300 ">
-            <a href="#contact">Signup</a>
-          </li>
-
-
+          {is_admin && (
+            <li className="hover:text-[#CE5A67] duration-300 ">
+              <Link to="/create-event">Create Event</Link>
+            </li>
+          )}
+          {currentUser ? (
+            <li className="hover:text-[#CE5A67] duration-300 ">
+              <button onClick={handleLogout}>Logout</button>
+            </li>
+          ) : (
+            <>
+              <li className="hover:text-[#CE5A67] duration-300 ">
+                <Link to="/signin">Signin</Link>
+              </li>
+              <li className="hover:text-[#CE5A67] duration-300 ">
+                <Link to="/signup">Signup</Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </nav>

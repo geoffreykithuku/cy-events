@@ -34,7 +34,8 @@ const CreateEvent = () => {
 
     try {
       const docRef = await addDoc(collection(db, "events"), event);
-      console.log("Document written with ID: ", docRef.id);
+        console.log("Document written with ID: ", docRef.id);
+        window.location.href = "/dashboard";
 
       toast.success("Event created successfully");
     } catch (error) {

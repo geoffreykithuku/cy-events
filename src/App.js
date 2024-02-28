@@ -7,26 +7,24 @@ import CreateEvent from "./components/createEvents";
 import EditEvent from "./components/editEvent";
 import UserDashboard from "./components/userDashboard";
 
-  import { ToastContainer } from "react-toastify";
-  import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-  <div>
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/signin" element={<Signin />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/create-event" element={<CreateEvent />} />
-      <Route path="/edit-event" element={<EditEvent />} />
-      <Route path="/dashboard" element={<UserDashboard />} />
-
-
+    <div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/create-event" element={<CreateEvent />} />
+        <Route path="/edit-event" element={<EditEvent />} />
+        <Route path="/dashboard" element={<UserDashboard />} />
       </Routes>
-      
+
       <ToastContainer />
-  </div>
-    
+    </div>
   );
 }
 
