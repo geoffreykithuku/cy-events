@@ -5,6 +5,7 @@ import Signin from "./components/signin";
 import Signup from "./components/signup";
 import CreateEvent from "./components/createEvents";
 import EditEvent from "./components/editEvent";
+import UserDashboard from "./components/userDashboard";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/create-event" element={<CreateEvent />} />
       <Route path="/edit-event" element={<EditEvent />} />
+      <Route path="/dashboard" element={<UserDashboard />} />
 
 
     </Routes>
