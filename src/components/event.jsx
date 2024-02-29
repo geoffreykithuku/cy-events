@@ -7,6 +7,11 @@ const EventCard = ({ event }) => {
   const { currentUser, addRsvp, countRsvp } = useContext(AuthContext);
 
   const handleRsvp = (id) => {
+    if (!currentUser) {
+      toast.error("Please login to reserve an event");
+      return;
+    }
+
     if (countRsvp(id) >= event.no_of_tickets) {
       toast.error("Tickets sold out");
       return;
