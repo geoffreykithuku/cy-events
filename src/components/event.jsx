@@ -58,9 +58,9 @@ const EventCard = ({ event }) => {
       </div>
 
       <div className="flex justify-between items-center">
-        <button className="p-2 bg-red-500 text-white rounded-md">
+        {/* <button className="p-2 bg-red-500 text-white rounded-md">
           <Heart />
-        </button>
+        </button> */}
         <button
           onClick={() => handleRsvp(event._id)}
           className="p-2 bg-blue-500 text-white rounded-md"

@@ -1,4 +1,4 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useCallback, useRef, useEffect, useState } from "react";
 import { auth } from "../firebase";
 import {
   collection,
@@ -12,6 +12,7 @@ import {
 
 import { db } from "../firebase";
 import { toast } from "react-toastify";
+import emailjs from "@emailjs/browser";
 
 export const AuthContext = createContext();
 
@@ -71,6 +72,24 @@ export function AuthProvider({ children }) {
     });
   };
 
+  // Send email
+
+  const sendEmail = async (form) => {
+    console.log(form);
+    await emailjs
+      .send("service_8yd07yr", "template_smh1c4e", form, "gAShCxizR1U0Ba5AE")
+      .then(
+        (result) => {
+          console.log(result.text);
+          toast.success("Email sent successfully");
+        },
+        (error) => {
+          console.log(error.text);
+          toast.error("Error sending email");
+        }
+      );
+  };
+
   // Add rsvp
   const addRsvp = async (event_id) => {
     const rsvpsRef = collection(db, "rsvps");
@@ -83,6 +102,14 @@ export function AuthProvider({ children }) {
       decrementTickets(event_id);
 
       toast.success("Event reserved successfully");
+      await sendEmail({
+        event_name: events.find((event) => event._id === event_id).title,
+        event_date: events.find((event) => event._id === event_id).date,
+        event_location: events.find((event) => event._id === event_id).location,
+        event_time: events.find((event) => event._id === event_id).time,
+        to_email: currentUser.email,
+      });
+      //window.location.reload();
     } catch (e) {
       console.error("Error adding document: ", e);
     }
