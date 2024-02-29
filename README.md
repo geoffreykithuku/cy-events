@@ -1,27 +1,42 @@
-<!-- The Challenge
 
-As a web application developer, you are required to develop a ticket booking system application. Here are the requirements.
 
-- The administrator should be able to add/ edit or remove events.
+## Cy Events 
+Cy Events is a ticket booking system application that allows users to view events details and reserve tickets. The administrator can add/ edit or remove events, specify the ticket price specifying ticket type (VIP and regular) and also specify the maximum number of attendees.
 
-- For each event, the admin should be able to specify the ticket price specifying ticket type (VIP and regular).
+## Note
 
-- Admin should also be able to specify the maximum number of attendees.
-
-- Users should be able to view events details and reserve tickets (VIP or regular) NB: One user can reserve up to 5 tickets.
-
-- The user should then be able to get an email notification for the successful reservation.
-
- -->
-
- ## Cy Events 
-    Cy Events is a ticket booking system application that allows users to view events details and reserve tickets. The administrator can add/ edit or remove events, specify the ticket price specifying ticket type (VIP and regular) and also specify the maximum number of attendees.
+For testing admin functionalities, use the following credentials:
+- Email: admin@gmail.com
+- Password: admin12
 
 ## Technologies Used
 - React
 - Firebase
 - Tailwind CSS
 - React Router
+
+## 
+1. Landing Page
+
+![landing](src/assets/landing.png)
+
+2. Dashboard
+
+![dashboard](src/assets/dashboard.png)
+
+3. Admin Dashboard
+
+![admin](src/assets/admin.png)
+
+4. Create Event (Admin)
+
+![create](src/assets/create.png)
+
+5. Reserved Tickets (User)
+
+![reserved](src/assets/reserved.png)
+
+
 
 ## Installation
 - Clone the repository
@@ -39,8 +54,4 @@ As a web application developer, you are required to develop a ticket booking sys
 - Users can get an email notification for the successful reservation
 
 
-## Note
 
-For testing admin functionalities, use the following credentials:
-- Email: admin@gmail.com
-- Password: admin12
