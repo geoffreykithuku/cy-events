@@ -75,16 +75,14 @@ export function AuthProvider({ children }) {
   // Send email
 
   const sendEmail = async (form) => {
-    console.log(form);
+    toast.success("Sending email");
     await emailjs
       .send("service_8yd07yr", "template_smh1c4e", form, "gAShCxizR1U0Ba5AE")
       .then(
         (result) => {
-          console.log(result.text);
           toast.success("Email sent successfully");
         },
         (error) => {
-          console.log(error.text);
           toast.error("Error sending email");
         }
       );
@@ -92,6 +90,7 @@ export function AuthProvider({ children }) {
 
   // Add rsvp
   const addRsvp = async (event_id) => {
+    toast.success("Reserving event");
     const rsvpsRef = collection(db, "rsvps");
     const rsvp = {
       user_id: currentUser.uid,
@@ -101,7 +100,6 @@ export function AuthProvider({ children }) {
       await addDoc(rsvpsRef, rsvp);
       decrementTickets(event_id);
 
-      toast.success("Event reserved successfully");
       await sendEmail({
         event_name: events.find((event) => event._id === event_id).title,
         event_date: events.find((event) => event._id === event_id).date,
@@ -109,7 +107,11 @@ export function AuthProvider({ children }) {
         event_time: events.find((event) => event._id === event_id).time,
         to_email: currentUser.email,
       });
-      //window.location.reload();
+      await toast.success("Event reserved successfully");
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+   
     } catch (e) {
       console.error("Error adding document: ", e);
     }
