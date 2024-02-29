@@ -1,21 +1,27 @@
+## Cy Events
 
-
-## Cy Events 
 Cy Events is a ticket booking system application that allows users to view events details and reserve tickets. The administrator can add/ edit or remove events, specify the ticket price specifying ticket type (VIP and regular) and also specify the maximum number of attendees.
 
 ## Note
 
 For testing admin functionalities, use the following credentials:
+
 - Email: admin@gmail.com
 - Password: admin12
 
+## Live Demo
+
+https://cy-events.vercel.app/
+
 ## Technologies Used
+
 - React
 - Firebase
 - Tailwind CSS
 - React Router
 
-## 
+##
+
 1. Landing Page
 
 ![landing](src/assets/landing.png)
@@ -36,9 +42,8 @@ For testing admin functionalities, use the following credentials:
 
 ![reserved](src/assets/reserved.png)
 
-
-
 ## Installation
+
 - Clone the repository
 - Change directory to the project directory
 - Run `npm install` to install the dependencies
@@ -52,6 +57,3 @@ For testing admin functionalities, use the following credentials:
 - Users can view events details and reserve tickets
 - Users can reserve up to 5 tickets
 - Users can get an email notification for the successful reservation
-
-
-
